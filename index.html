@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>母亲节快乐！</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #a18cd1);
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+
+        .container {
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .title {
+            color: #fff;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .message-box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            max-width: 600px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .message {
+            font-size: 1.2em;
+            color: #e91e63;
+            line-height: 1.6;
+        }
+
+        .heart {
+            position: absolute;
+            color: #ff4081;
+            animation: fall linear forwards;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">❤️ 母亲节快乐！ ❤️</h1>
+        <div class="message-box">
+            <p class="message" id="message">点击屏幕查看更多祝福</p>
+        </div>
+    </div>
+
+    <script>
+        // 祝福语数组
+        const messages = [
+            "感谢您不是超人，却为我变成了万能！",
+            "岁月不是偷走妈妈青春的神偷，我才是！",
+            "您陪我长大，我陪您慢慢变老～",
+            "世界上最美的称呼是——妈妈！",
+            "母爱是柴米油盐间的琐碎细腻❤️",
+            "妈妈的爱，藏在每一句唠叨里～",
+            "缓慢又笨拙的路上，谢谢您陪我长大！"
+        ];
+
+        // 动态创建爱心
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            document.body.appendChild(heart);
+
+            // 动画结束后移除元素
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        // 点击事件处理
+        let index = 0;
+        document.addEventListener('click', () => {
+            // 更新祝福语
+            document.getElementById('message').textContent = messages[index];
+            index = (index + 1) % messages.length;
+
+            // 创建多个爱心
+            for(let i = 0; i < 5; i++) {
+                createHeart();
+            }
+
+            // 添加点击动画
+            document.querySelector('.message-box').style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                document.querySelector('.message-box').style.transform = 'scale(1)';
+            }, 200);
+        });
+
+        // 自动创建爱心
+        setInterval(createHeart, 500);
+    </script>
+</body>
+</html>
